@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뽀엥 애기 ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            font-family: 'Gamja Flower', cursive; overflow: hidden;
+            background-color: #fff0f3;
+        }
+
+        #scene1 {
+            width: 100%; height: 100%; background-color: #ffb6c1;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            cursor: pointer; transition: opacity 0.6s ease-in-out;
+            z-index: 10; position: absolute;
+        }
+
+        #scene2 {
+            display: none; width: 100%; height: 100%;
+            flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; opacity: 0; transition: opacity 1s ease-in-out;
+            z-index: 5;
+        }
+
+        .box { font-size: 120px; animation: bounce 1.2s infinite; }
+        .message { font-size: 38px; color: #ff4d6d; line-height: 1.5; margin-bottom: 20px; z-index: 11; }
+
+        .photo-album { display: flex; gap: 25px; margin: 30px 0; justify-content: center; align-items: center; flex-wrap: wrap; z-index: 11; }
+        .photo { 
+            width: 180px; height: 230px; object-fit: cover; background-color: white;
+            padding: 12px 12px 40px 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 2px;
+        }
+        .polaroid1 { transform: rotate(-7deg); }
+        .polaroid2 { transform: rotate(7deg) translateY(15px); }
+        .photo:hover { transform: rotate(0deg) scale(1.15); z-index: 20; box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+
+
+        .rising-heart {
+            position: absolute;
+            bottom: -50px; 
+            color: #ff4d6d;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: rise 3s linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+        button { margin-top: 30px; padding: 12px 25px; border-radius: 30px; border: none; background: #ffb6c1; color: white; font-family: 'Gamja Flower', cursive; font-size: 18px; cursor: pointer; z-index: 11; }
+    </style>
+</head>
+<body>
+
+    <div id="scene1" onclick="showSurprise()">
+        <div class="box">🎁</div>
+        <div class="instruction" style="font-size:26px; color:white; margin-top:20px; font-weight:bold;">상자를 누르세욥!!</div>
+    </div>
+
+    <div id="scene2">
+        <div class="message">지뚜야암<br>함께해줘서 고마워 ❤️</div>
+        <div class="photo-album">
+            <img src="us1.jpg" alt="우리 사진 1" class="photo polaroid1" onerror="this.src='https://api.iconify.design/noto:smiling-face-with-hearts.svg'">
+            <img src="us2.jpg" alt="우리 사진 2" class="photo polaroid2" onerror="this.src='https://api.iconify.design/noto:smiling-face-with-hearts.svg'">
+        </div>
+        <div class="message" style="font-size: 22px;">아노오옹 조만간 서울 간드아앗!!</div>
+        <button onclick="location.reload()">다시 보기</button>
+    </div>
+
+    <script>
+        function showSurprise() {
+            const s1 = document.getElementById('scene1');
+            const s2 = document.getElementById('scene2');
+
+            s1.style.opacity = '0';
+            
+            setTimeout(() => {
+                s1.style.display = 'none';
+                s2.style.display = 'flex';
+                
+                setTimeout(() => {
+                    s2.style.opacity = '1';
+                    setInterval(createRisingHeart, 300);
+                }, 100);
+            }, 600);
+        }
+
+        function createRisingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'rising-heart';
+            heart.innerText = '❤️';
+
+            const startPos = Math.random() * window.innerWidth;
+            const size = Math.random() * 20 + 10; // 10px ~ 30px
+            const duration = Math.random() * 2 + 2; // 2초 ~ 4초
+            
+            heart.style.left = startPos + 'px';
+            heart.style.fontSize = size + 'px';
+            heart.style.animationDuration = duration + 's';
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, 4000);
+        }
+    </script>
+</body>
+</html>
